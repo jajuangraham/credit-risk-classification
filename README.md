@@ -1,31 +1,44 @@
-# Credit Risk Classification: Machine Learning Model Evaluation
-# Overview of the Analysis
-The purpose of this analysis was to train a supervised machine learning model to predict the likelihood that a loan applicant would repay or default on their loan. The # dataset used for this task included historical lending data with labeled outcomes. This classification problem is crucial for financial institutions to manage risk and make informed lending decisions.
+## Overview of the Analysis
 
-I applied standard preprocessing techniques and trained a machine learning classifier to evaluate its ability to accurately predict loan status.
+The purpose of this analysis was to evaluate the performance of machine learning models in predicting the likelihood that a loan applicant would default on a loan. The dataset contained historical financial information about loan applicants, including variables such as income, debt-to-income ratio, loan amount, and credit history.
 
-# Model Performance Results
-The model's performance was evaluated using precision, recall, and accuracy metrics. Below are the results from the final classification report:
+The primary target variable was `loan_status`, which we aimed to classify as:
 
-# Accuracy Score: 0.99
+* `0`: Healthy loan (the applicant repaid the loan)
+* `1`: High-risk loan (the applicant defaulted)
 
-# Precision Score:
+Using `value_counts()`, we identified that the dataset was highly imbalanced, with a much higher number of healthy loans (`0`) compared to high-risk loans (`1`), which posed a challenge for prediction accuracy on the minority class.
 
-# Class 0 (loan repaid): 1.00
+To address this, we followed a typical supervised machine learning pipeline:
 
-# Class 1 (loan defaulted): 0.84
+* Data preprocessing and cleaning
+* Feature and target variable separation
+* Training/testing data split
+* Model training using `LogisticRegression`
+* Model evaluation using classification metrics (accuracy, precision, recall, and F1-score)
 
-# Recall Score:
+## Results
 
-# Class 0: 0.99
+* **Machine Learning Model 1: Logistic Regression**
 
-# Class 1: 0.94
+  * **Accuracy Score**: 0.99
+  * **Precision Score**:
 
-# Summary and Recommendation
-The machine learning model demonstrated strong overall performance with an accuracy of 99%. The recall for class 1 (loan defaulted) was 94%, indicating that the model is highly effective at identifying risky applicants, which is critical in credit risk analysis.
+    * Class 0 (healthy loans): 1.00
+    * Class 1 (high-risk loans): 0.84
+  * **Recall Score**:
 
-The precision for class 1 was 84%, suggesting some room for improvement in reducing false positives (predicting default when the loan would actually be repaid). However, the trade-off may be acceptable depending on the business's risk tolerance.
+    * Class 0: 0.99
+    * Class 1: 0.94
+  * **F1 Score**:
 
-# Recommendation: 
-Based on these results, I recommend this model for deployment, with continued monitoring. Its high recall on the high-risk class (defaults) is particularly valuable for lending institutions aiming to reduce default rates. Future enhancements might include tuning hyperparameters or testing more advanced algorithms to boost precision without sacrificing recall.
+    * Class 0: 1.00
+    * Class 1: 0.89
 
+## Summary
+
+The Logistic Regression model performs exceptionally well in classifying both healthy and high-risk loans, with an overall accuracy of 99%. It predicts healthy loans with near-perfect precision and recall, and high-risk loans with strong recall (94%) and good precision (84%).
+
+Given the business context—minimizing financial risk—it’s more important to correctly identify high-risk loans (`1`). The model’s high recall for this class means it effectively flags risky borrowers, which can help lenders avoid defaults.
+
+**Recommendation**: I recommend using the Logistic Regression model, as it offers a strong balance between overall accuracy and the ability to identify high-risk loans with minimal false negatives. Further enhancements could involve rebalancing the data or testing other algorithms to improve precision for class 1.
